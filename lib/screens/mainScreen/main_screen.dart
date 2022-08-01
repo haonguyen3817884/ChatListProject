@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import "package:chat_list_project/widgets/customer_image.dart";
 import "package:chat_list_project/widgets/customer_input.dart";
 
+import "package:chat_list_project/routes/router_name.dart";
+
 class MainScreenBinding extends Bindings {
   @override
   void dependencies() {
@@ -40,7 +42,10 @@ class MainScreen extends GetView<MainScreenController> {
                   actions: <Widget>[
                     IconButton(
                         icon: const Icon(Icons.menu, color: Colors.black),
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.goToPage(RouterName.storeScreen,
+                              arguments: controller.customerItems);
+                        },
                         constraints: const BoxConstraints()),
                     IconButton(
                         icon: const Icon(Icons.folder, color: Colors.black),
@@ -58,7 +63,21 @@ class MainScreen extends GetView<MainScreenController> {
                     customerInputMargin: const EdgeInsets.only(
                         top: 17.4, right: 11.5, left: 11.5, bottom: 17.4)),
                 SizedBox(
-                    child: TabBar(tabs: controller.getTabsByCategories()),
+                    child: DecoratedBox(
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    color: Color.fromARGB(255, 98, 98, 98),
+                                    style: BorderStyle.solid,
+                                    width: 1.4))),
+                        child: TabBar(
+                            tabs: controller.getTabsByCategories(),
+                            indicatorColor: Colors.black,
+                            labelColor: Colors.black,
+                            labelStyle:
+                                const TextStyle(fontWeight: FontWeight.bold),
+                            unselectedLabelStyle: const TextStyle(
+                                fontWeight: FontWeight.normal))),
                     width: MediaQuery.of(context).size.width),
                 Expanded(
                     child: TabBarView(
